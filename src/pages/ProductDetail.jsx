@@ -58,7 +58,7 @@ const ProductDetail = () => {
                     </select>
                 </div>
                 <br />
-                <button style={{ width: "100%" }}>Add to cart</button>
+                <button style={{ width: "100%", background: "lightcoral", color: "white" }}>Add to cart</button>
             </Col>
             <h1>Discover similar products</h1>
             {
