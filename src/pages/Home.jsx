@@ -11,7 +11,6 @@ const Home = () => {
     const [categories, setCategories] = useState([]);
 
     const dispatch = useDispatch();
-
     const navigate = useNavigate();
 
 
@@ -24,12 +23,18 @@ const Home = () => {
             .then(res => setCategories(res.data.data.categories));
     }, [])
     console.log(categories)
+
+    document.body.style =`
+    margin: 10px
+    `
+
     return (
         <Row>
             <Col lg={3}>
                 <ListGroup>
+                    <small style={{color: "lightcoral"}}>Filter by category</small>
                     {categories.map((category) => (
-                        <ListGroup.Item onClick={() => dispatch(filterCategoryThunk(category.id))} key={category.id}>{category.name}</ListGroup.Item>
+                        <ListGroup.Item className="category-filter" onClick={() => dispatch(filterCategoryThunk(category.id))} key={category.id}>{category.name}</ListGroup.Item>
                     ))}
                 </ListGroup>
             </Col>
@@ -37,29 +42,38 @@ const Home = () => {
             <Col >
                 <InputGroup className="mb-3">
                     <Form.Control
-                        placeholder="Recipient's username"
-                        aria-label="Recipient's username"
+                        placeholder='What are you looking for?'
                         aria-describedby="basic-addon2"
                         onChange={e => setSearchValue(e.target.value)}
                         value={searchValue}
-                    />
-                    <Button variant="outline-secondary" id="button-addon2" onClick={() => dispatch(filterProductThunk(searchValue))}>
-                        Button
+                        style={{background: "white", color: "white"}}
+                        />
+                    <Button style={{color: "lightcoral"}} variant="outline-secondary" id="button-addon2" onClick={() => dispatch(filterProductThunk(searchValue))}>
+                        Search
                     </Button>
                 </InputGroup>
                 <Row xs={1} md={2} lg={3} className="g-4">
 
                     {products.map((productItem) => (
                         <Col key={productItem.id}>
-                            <Card >
+                            <Card style={{padding: "5px"}} >
                                 <div style={{ display: "block" }} onClick={() => navigate(`/shop/${productItem.id}`)} >
-                                    <Card.Title>{productItem.title}</Card.Title>
-                                    <Card.Img src={productItem.productImgs[1]} variant="top" />
-                                    <Card.Body>
+
+                                    <div className="tc-container">
+                                        <Card.Img  src={productItem.productImgs[0]} variant="top" />
+                                        <Card.Img  className="top-img"  src={productItem.productImgs[1]} variant="top" />
+                                    </div>
+
+                                    <Card.Body style={{borderTop: "1px solid black", marginTop: "10px"}}>
+                                        <Card.Title style={{fontSize: "14px", fontWeight: "bold"}}>{productItem.title}</Card.Title>
                                         <div>
-                                            <small>{productItem.status}</small>
+                                            Price
+                                            <div style={{display: 'flex', justifyContent: "space-between"}}>
+                                                <small>$ {productItem.price}</small>
+                                                <Button variant="outline-danger"><i class="fa-solid fa-cart-circle-plus"></i></Button>
+                                            </div>
+
                                         </div>
-                                        <h3>price: {productItem.price}</h3>
                                     </Card.Body>
                                 </div>
                             </Card>
