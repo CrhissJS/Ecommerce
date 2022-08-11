@@ -5,9 +5,9 @@ import {Spinner} from 'react-bootstrap'
 const LoadingScreen = () => {
     return (
         <div className='overlay'>
-            <Spinner animation="grow" variant="danger" />
-            <Spinner animation="grow" variant="danger" />
-            <Spinner animation="grow" variant="danger" />
+            <Spinner animation="grow" variant="success" />
+            <Spinner animation="grow" variant="success" />
+            <Spinner animation="grow" variant="success" />
         </div>
     );
 };

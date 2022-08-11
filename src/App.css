@@ -18,6 +18,7 @@ img{
   top: 0;
   transition: all .7s  ease;
   opacity: 0;
+  background: white;
 }
 
 .top-img:hover{
@@ -26,4 +27,10 @@ img{
 
 .category-filter:hover{
   background: lightcoral;
+}
+
+.login-container{
+  display: flex;
+  justify-content: center;
+  width: 100%;
 }

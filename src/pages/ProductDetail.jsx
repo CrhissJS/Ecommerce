@@ -1,15 +1,17 @@
-import axios from 'axios';
+import '../styles/productDetail.css'
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
 import { getProductsThunk } from '../store/slices/products.slice';
-import { Card, Col, Row, InputGroup, Form, Button, ListGroup } from 'react-bootstrap'
+import { Card, Col, Row, Button, InputGroup, Form, Carousel } from 'react-bootstrap'
+import { addProductThunk } from '../store/slices/cart.slice';
 
 const ProductDetail = () => {
 
     const allProducts = useSelector(state => state.products)
     const [productDetail, setProductDetail] = useState({})
     const [suggestedProducts, setSuggestedProducts] = useState([]);
+    const [quantity, setQuantity] = useState("")
 
 
     const { id } = useParams();
@@ -23,48 +25,87 @@ const ProductDetail = () => {
 
     useEffect(() => {
         const products = allProducts.find(productItem => productItem.id === Number(id))
-        console.log(products)
         setProductDetail(products)
 
         const filteredProducts = allProducts.filter(productItem => productItem.category.id === products.category.id);
         setSuggestedProducts(filteredProducts);
     }, [allProducts, id])
 
-    console.log(suggestedProducts)
+    const addProduct = () => {
+        alert("adding product")
+        const product = {
+            id: productDetail.id,
+            quantity
+        }
+        dispatch(addProductThunk(product));
+    }
+
+    console.log(productDetail)
 
     return (
         <Row>
             <Col lg={5}>
-                {
-                    productDetail?.productImgs?.map(productImg => (
-                        <img key={productImg} src={productImg} alt="" />
-                    ))
-                }
+                <Carousel style={{padding: "50px"}} variant="dark">
+                    <Carousel.Item>
+                        <img
+                            className="d-block w-100"
+                            src={productDetail?.productImgs?.[0]}
+                            alt="First slide"
+                        />
+                    </Carousel.Item>
+                    <Carousel.Item>
+                        <img
+                            className="d-block w-100"
+                            src={productDetail?.productImgs?.[1]}
+                            alt="Second slide"
+                        />
+                    </Carousel.Item>
+                    <Carousel.Item>
+                        <img
+                            className="d-block w-100"
+                            src={productDetail?.productImgs?.[2]}
+                            alt="Third slide"
+                        />
+                    </Carousel.Item>
+                </Carousel>
             </Col>
 
             <Col>
                 <h3 >{productDetail?.title}</h3>
                 <p>{productDetail?.description}</p>
-                <div style={{ display: 'flex', justifyContent: "space-evenly" }}>
-                    <small>Price: $ <b>{productDetail?.price}</b> </small>
-                    <select name="" id="">
-                        <option value="">Select a quantity</option>
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                        <option value="4">4</option>
-                        <option value="5">5</option>
-
-                    </select>
+                <div style={{ display: 'flex', justifyContent: "space-between" }}>
+                    <h5>Price: $ <b>{productDetail?.price}</b>
+                        <br />
+                        QUANTITY OF PRODUCTS TO ADD:
+                    </h5>
+                    <div>
+                        <InputGroup className="mb-3">
+                            <Form.Control
+                                className=""
+                                placeholder="Quantity"
+                                aria-label="Recipient's username"
+                                aria-describedby="basic-addon2"
+                                value={quantity}
+                                onChange={(e) => setQuantity(e.target.value)}
+                            />
+                            <Button
+                                onClick={addProduct}
+                                variant="outline-danger"
+                                id="button-addon2"
+                            >
+                                Add to cart
+                            </Button>
+                        </InputGroup>
+                    </div>
                 </div>
-                <br />
-                <button style={{ width: "100%", background: "lightcoral", color: "white" }}>Add to cart</button>
             </Col>
-            <h1>Discover similar products</h1>
+            <div style={{ marginTop: "100px" }}>
+                <h1>Discover similar products</h1>
+            </div>
             {
                 suggestedProducts.map(products => (
                     <Col key={products.id} >
-                        <Card style={{ padding: "5px" }} >
+                        <Card style={{ padding: "5px", paddingTop: "15px", boxShadow: "0 4px 8px 0 lightgreen" }} >
                             <div style={{ display: "block" }} onClick={() => navigate(`/shop/${products.id}`)}>
                                 <div className="tc-container">
                                     <Card.Img src={products.productImgs[0]} variant="top" />
@@ -77,7 +118,7 @@ const ProductDetail = () => {
                                         Price
                                         <div style={{ display: 'flex', justifyContent: "space-between" }}>
                                             <small>$ {products.price}</small>
-                                            <Button variant="outline-danger"><i className="fa-solid fa-cart-circle-plus"></i></Button>
+                                            <Button variant="outline-danger"><i style={{ fontSize: "20px" }} className="fa-solid fa-cart-plus"></i></Button>
                                         </div>
 
                                     </div>
