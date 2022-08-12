@@ -35,7 +35,8 @@ const NavBar = () => {
     return (
         <Navbar className="my-2 p-1" style={{ border: "none" }} bg="light" expand="lg">
             <Container>
-                <Navbar.Brand style={{ color: "paleturquoise" }} onClick={() => dispatch(getProductsThunk())} href="/#/">MERCADO TRENDING</Navbar.Brand>
+                <Navbar.Brand  onClick={() => dispatch(getProductsThunk())} href="/#/">
+                   <h1 style={{ color: "paleturquoise", borderBottom: "1px solid paleturquoise" }}>FLEA MARKET</h1> </Navbar.Brand>
 
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse className="justify-content-end" id="basic-navbar-nav">
