@@ -18,8 +18,6 @@ const Cart = ({show, handleClose}) => {
         dispatch(getCartThunk());
     },[])
 
-    console.log(cart)
-    
     const getTotal = () => {
         let total = 0;
 
@@ -57,9 +55,9 @@ const Cart = ({show, handleClose}) => {
             <Offcanvas.Body>
                 {
                     cart.map(product => (
-                        <li style={{marginBottom: "10px", borderBottom: "1px solid lightcoral", padding: "20px", listStyle: "none"}} key={product.id}>
-                            <div style={{display: 'flex', justifyContent: "flex-end", height: "30px"}}>
-                                <button onClick={()=> dispatch(deleteProductThunk(product.id))} style={{color: "red"}}>x</button>
+                        <li style={{marginBottom: "10px", borderBottom: "1px solid lightgreen", padding: "20px", listStyle: "none"}} key={product.id}>
+                            <div style={{display: 'flex', justifyContent: "flex-end"}}>
+                                <Button size='sm' variant="outline-danger" style={{}} onClick={()=> dispatch(deleteProductThunk(product.id))}>Delete</Button>
                             </div>
                             <br />
                             {product.title}
@@ -68,11 +66,11 @@ const Cart = ({show, handleClose}) => {
                             <br />
                             price: $ {product.price * product.productsInCart.quantity}
                             <div style={{display: 'flex', justifyContent: "flex-end", height: "30px"}}>
-                                <button style={{background: "white", border: "1px solid lightcoral"}} onClick={() => decrease(product)} >-</button> 
-                                <div style={{padding: "3px",border: "1px solid lightcoral"}}>
+                                <button style={{background: "white", border: "1px solid lightgreen"}} onClick={() => decrease(product)} >-</button> 
+                                <div style={{padding: "3px",border: "1px solid lightgreen"}}>
                                     {product.productsInCart.quantity}
                                 </div> 
-                                <button style={{background: "white", border: "1px solid lightcoral"}} onClick={() => increase(product)}>+</button>
+                                <button style={{background: "white", border: "1px solid lightgreen"}} onClick={() => increase(product)}>+</button>
 
                             </div>
                         </li>
@@ -80,7 +78,7 @@ const Cart = ({show, handleClose}) => {
                     ))
                 }
                 <h4>Total: {getTotal()}</h4>
-                <div style={{display: "flex", justifyContent: "center", borderTop: "1px solid lightcoral", paddingTop: "20px"}}>
+                <div style={{display: "flex", justifyContent: "center", borderTop: "1px solid lightgreen", paddingTop: "20px"}}>
                     <Button onClick={() => dispatch(checkoutThunk())}>Checkout</Button>
                 </div>
             </Offcanvas.Body>

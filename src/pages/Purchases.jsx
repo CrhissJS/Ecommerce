@@ -2,6 +2,8 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getPurchasesThunk } from '../store/slices/purchases.slice';
 
+import PurchaseItem from '../components/PurchaseItem'
+
 const Purchases = () => {
 
     const dispatch = useDispatch();
@@ -13,23 +15,15 @@ const Purchases = () => {
 
     }, [])
 
+    
 
     return (
-        <div>
-            Purchases
+        <div style={{ width: "100%" }}>
+            <h5 style={{ display: "flex", justifyContent: "center" }}>History Purchases</h5>
             {
                 purchases?.map(purchase => (
-                    <ul key={purchase.id}>
-                        Purchase Number: {purchase.id}
-                        {purchase.cart.products.map(product => (
-                            <li key={product.id}>
-                                {product.title}
-                                <br />
-                                price: {product.price}
-                            </li>
-                        ))}
-                    </ul>
-                    
+                    <PurchaseItem key={purchase.id} purchase={purchase}/>
+
                 ))
             }
         </div>
