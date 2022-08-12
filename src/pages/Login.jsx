@@ -34,7 +34,7 @@ const Login = () => {
         <div className='login-container'>
             <Form onSubmit={handleSubmit(submit)} style={{marginTop: "30px"}}>
                 <Form.Group className="mb-3" controlId="formBasicSubmit" style={{display: 'flex', justifyContent: "center"}}>
-                    <i style={{fontSize: "100px", color: "lightcoral"}} className="fa-solid fa-users"></i>
+                    <i style={{fontSize: "100px", color: "paleturquoise"}} className="fa-solid fa-users"></i>
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="formBasicEmail">
                     <Form.Label >Email address</Form.Label>
@@ -46,7 +46,7 @@ const Login = () => {
                     <Form.Control type="password" placeholder="Password" {...register("password")} />
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="formBasicSubmit" style={{display: 'flex', justifyContent: "center"}}>
-                    <Button variant="outline-danger" type="submit" >
+                    <Button variant="outline-info" type="submit" >
                         Login
                     </Button>
                 </Form.Group>
