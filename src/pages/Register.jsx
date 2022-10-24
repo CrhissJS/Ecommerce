@@ -4,36 +4,33 @@ import { Button, Form } from "react-bootstrap";
 import { useForm } from "react-hook-form";
 import { useNavigate, Link } from "react-router-dom";
 
-const Login = () => {
+const Register = () => {
   const { register, handleSubmit, reset } = useForm();
 
   const navigate = useNavigate();
 
   const submit = (data) => {
     axios
-      .post(
-        "https://ecommerce-api-react.herokuapp.com/api/v1/users/login",
-        data
-      )
+      .post("https://ecommerce-api-react.herokuapp.com/api/v1/users", data)
       .then((res) => {
-        navigate("/");
+        navigate("/login");
         localStorage.setItem("token", res.data.data.token);
-      })
-      .catch((error) => {
-        if (error.response.status === 404) {
-          alert("Credenciales inválidas");
-        }
-        console.log(error.response);
       });
     reset({
+      firstName: "",
+      lastName: "",
       email: "",
       password: "",
+      phone: "",
     });
   };
 
   return (
-    <div className="login-container">
-      <Form onSubmit={handleSubmit(submit)} style={{ marginTop: "30px" }}>
+    <div className="register-container">
+      <Form
+        onSubmit={handleSubmit(submit)}
+        style={{ marginTop: "30px", width: "270px" }}
+      >
         <Form.Group
           className="mb-3"
           controlId="formBasicSubmit"
@@ -44,6 +41,37 @@ const Login = () => {
             className="fa-solid fa-users"
           ></i>
         </Form.Group>
+
+        <Form.Group
+          style={{
+            display: "grid",
+            gridTemplateColumns: "1fr 1fr",
+            gap: "1rem",
+          }}
+        >
+          <Form.Group className="mb-3" controlId="formBasiFirstName">
+            <Form.Label style={{ display: "flex", justifyContent: "center" }}>
+              First Name
+            </Form.Label>
+            <Form.Control
+              type="text"
+              placeholder="First Name"
+              {...register("firstName")}
+            />
+          </Form.Group>
+
+          <Form.Group className="mb-3" controlId="formBasicLastName">
+            <Form.Label style={{ display: "flex", justifyContent: "center" }}>
+              Last Name
+            </Form.Label>
+            <Form.Control
+              type="text"
+              placeholder="Last Name"
+              {...register("lastName")}
+            />
+          </Form.Group>
+        </Form.Group>
+
         <Form.Group className="mb-3" controlId="formBasicEmail">
           <Form.Label style={{ display: "flex", justifyContent: "center" }}>
             Email address
@@ -65,25 +93,36 @@ const Login = () => {
             {...register("password")}
           />
         </Form.Group>
+
+        <Form.Group className="mb-3" controlId="formBasicPhone">
+          <Form.Label style={{ display: "flex", justifyContent: "center" }}>
+            Phone
+          </Form.Label>
+          <Form.Control
+            type="text"
+            placeholder="Phone"
+            {...register("phone")}
+          />
+        </Form.Group>
+
         <Form.Group
           className="mb-3"
           controlId="formBasicSubmit"
           style={{ display: "flex", justifyContent: "center" }}
         >
           <Button variant="outline-info" type="submit">
-            Login
+            Create User
           </Button>
         </Form.Group>
         <Form.Text className="text-muted">
-          We'll never share your email with anyone else.
-          <br />
-          Don't have an account?{" "}
+          We'll never share your email with anyone else. Do you already have an
+          account?
           <Link
             className="register"
             style={{ textDecoration: "none", marginLeft: "10px" }}
-            to="/register"
+            to="/login"
           >
-            Let's sign up
+            Let's login
           </Link>
         </Form.Text>
       </Form>
@@ -91,4 +130,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default Register;

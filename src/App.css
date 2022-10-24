@@ -35,3 +35,16 @@ img{
   width: 100%;
 }
 
+.register-container{
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.register:hover{
+  color: paleturquoise;
+}
+
+.button-hovered:hover{
+  border: 1px solid lightgreen;
+}
