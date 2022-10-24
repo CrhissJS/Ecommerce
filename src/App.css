@@ -48,3 +48,7 @@ img{
 .button-hovered:hover{
   border: 1px solid lightgreen;
 }
+
+.carrito:hover{
+  border: 1px solid red;
+}
